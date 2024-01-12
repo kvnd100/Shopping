@@ -7,8 +7,10 @@ import { Ingredient } from '../shared/ingredient.model';
   styleUrls: ['./shopping-list.component.scss'],
 })
 export class ShoppingListComponent {
-  ingredients: Ingredient[] = [
-    new Ingredient('Pepper', 100),
-    new Ingredient('Apple', 500),
-  ];
+  ingredients: Ingredient[] = [];
+
+  getIngredients($event: Ingredient) {
+    this.ingredients.push($event);
+    console.log(this.ingredients);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Recipe } from '../recipe.model';
 
 @Component({
@@ -8,6 +8,11 @@ import { Recipe } from '../recipe.model';
 })
 export class RecipeListComponent {
   recipes: Recipe[] = [];
+  @Output() recipeWasSelected = new EventEmitter<Recipe>();
+
+  selectedRecipe(recipe: Recipe) {
+    this.recipeWasSelected.emit(recipe);
+  }
 
   createRecipe() {
     this.recipes.push(
@@ -17,11 +22,10 @@ export class RecipeListComponent {
         'https://marketplace.canva.com/EAEzSj77_B4/2/0/1067w/canva-beige-cute-recipe-card-xDHAiGpfgKU.jpg'
       ),
       new Recipe(
-        'Recipe1',
+        'Recipe2',
         'This is a test recipe',
         'https://marketplace.canva.com/EAEzSj77_B4/2/0/1067w/canva-beige-cute-recipe-card-xDHAiGpfgKU.jpg'
       )
     );
-    console.log(this.recipes);
   }
 }
