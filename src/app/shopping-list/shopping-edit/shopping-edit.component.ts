@@ -6,6 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Ingredient } from 'src/app/shared/ingredient.model';
+import { ShoppingService } from '../shopping-list.service';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -15,22 +16,20 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
 export class ShoppingEditComponent {
   @ViewChild('inputName', { static: true }) name: ElementRef | undefined;
   @ViewChild('inputAmount', { static: true }) amount: ElementRef | undefined;
-  @Output() sendIngredient = new EventEmitter<Ingredient>();
 
-
+  constructor(private shoppingService: ShoppingService) {}
 
   addIngredient(e: any) {
     e.stopPropagation();
     e.preventDefault();
-
     if (
       this.name?.nativeElement.value.trim() !== '' &&
       this.amount?.nativeElement.value.trim() !== ''
     ) {
-      this.sendIngredient.emit({
-        name: this.name?.nativeElement.value.trim(),
-        amount: this.amount?.nativeElement.value.trim(),
-      });
+      this.shoppingService.addIngredients(
+        this.name?.nativeElement.value.trim(),
+        this.amount?.nativeElement.value.trim()
+      );
     } else {
       throw new Error('empty string');
     }
